@@ -14,6 +14,7 @@ import { AppModule } from './app.module';
 import { ConfigService } from '@nestjs/config';
 import { RollbarLogger } from 'nestjs-rollbar';
 import { AllExceptionsFilter } from './exceptions/all.exception';
+import { TransformInterceptor } from './interceptors/transform.interceptor';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule,{cors:true});
@@ -23,6 +24,7 @@ async function bootstrap() {
   //app.useGlobalFilters(new GlobalRollbarExceptionFilter(rollbarLogger));
 
   app.useGlobalFilters(new AllExceptionsFilter(httpAdapter, rollbarLogger));
+  app.useGlobalInterceptors(new TransformInterceptor());
   await app.listen(parseInt(app.get(ConfigService).get('port')));
 }
 bootstrap();

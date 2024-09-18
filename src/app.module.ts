@@ -10,6 +10,9 @@ import { UsersModule } from './modules/users/users.module';
 import { AuthModule } from './modules/auth/auth.module';
 import { APP_GUARD } from '@nestjs/core';
 import { JwtAuthGuard } from './modules/auth/jwt-auth.guard';
+import { DoctorsModule } from './doctor/doctors.module';
+import { SlotsModule } from './slots/slots.module';
+import { AppointmentsModule } from './appointments/appointments.module';
 
 @Module({
   imports: [
@@ -31,6 +34,9 @@ import { JwtAuthGuard } from './modules/auth/jwt-auth.guard';
     TypeOrmModule.forRootAsync(typeOrmAsyncConfig),
     AuthModule,
     UsersModule,
+    DoctorsModule,
+    SlotsModule,
+    AppointmentsModule
   ],
   controllers: [AppController],
   providers: [

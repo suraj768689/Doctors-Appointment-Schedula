@@ -1,5 +1,7 @@
 // user.entity.ts
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
+import { Exclude } from 'class-transformer';
+import { Appointment } from 'src/appointments/appointment.entity';
 
 @Entity({ name: 'users' })
 export class User {
@@ -12,6 +14,10 @@ export class User {
   @Column({ unique: true })
   email: string;
 
+  @Exclude()
   @Column()
   password: string; // Password will be hashed
+
+  @OneToMany(() => Appointment, appointment => appointment.user)
+  appointments: Appointment[];
 }
